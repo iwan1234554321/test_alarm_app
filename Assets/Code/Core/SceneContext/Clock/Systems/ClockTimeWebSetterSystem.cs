@@ -39,7 +39,7 @@ public class ClockTimeWebSetterSystem : AppSystem
 
     protected override void OnStart()
     {
-        _clocks = App.GetSceneSystem<ClockUpdater>().SystemObjects;
+        _clocks = App.GetSystem<ClockUpdater>().SystemObjects;
 
         UpdateTime();
     }

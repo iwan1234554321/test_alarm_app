@@ -28,7 +28,7 @@ public class NotifySystem : AppSystem
         {
             Debug.Log("CLOSE NOTIFY");
 
-            App.GetSceneSystem<ScreenSystem>().SetPreviousScreen();
+            App.GetSystem<ScreenSystem>().SetPreviousScreen();
 
             OnComplete?.Invoke();
 
@@ -40,7 +40,7 @@ public class NotifySystem : AppSystem
     {
         notifyMessage.text = message;
 
-        App.GetSceneSystem<ScreenSystem>().SetScreen(screenNotifyIndex);
+        App.GetSystem<ScreenSystem>().SetScreen(screenNotifyIndex);
 
         OnComplete += completed;
     }

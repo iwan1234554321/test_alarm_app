@@ -38,7 +38,7 @@ public class AlarmSystem : AppSystem
 
     private void UpdateClockScreensActivation()
     {
-        App.GetSceneSystem<ScreenSystem>().SetScreen(_setupAlarm ? alarmScreenIndex : clockScreenIndex);
+        App.GetSystem<ScreenSystem>().SetScreen(_setupAlarm ? alarmScreenIndex : clockScreenIndex);
     }
 
     protected override void OnStart()
