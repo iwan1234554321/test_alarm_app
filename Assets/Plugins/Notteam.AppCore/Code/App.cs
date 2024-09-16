@@ -52,15 +52,5 @@ namespace Notteam.AppCore
         {
             return _appManager.GetSystem(type);
         }
-
-        public static T GetAppSystem<T>() where T : AppSystem
-        {
-            return _appManager.GetAppSystem<T>();
-        }
-
-        public static T GetSceneSystem<T>() where T : AppSystem
-        {
-            return _appManager.GetSceneSystem<T>();
-        }
     }
 }

@@ -64,15 +64,5 @@ namespace Notteam.AppCore
             else
                 return null;
         }
-
-        public T GetAppSystem<T>() where T : AppSystem
-        {
-            return SystemManager.GetSystem<T>();
-        }
-
-        public T GetSceneSystem<T> () where T : AppSystem
-        {
-            return SceneManager.SceneContext.GetSystem<T>();
-        }
     }
 }
