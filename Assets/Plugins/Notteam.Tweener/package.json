@@ -1,0 +1,12 @@
+{
+   "name": "com.notteam.tweener",
+   "version": "0.1.0",
+   "displayName": "Notteam.Tweener",
+   "description": "Tool for animating various data based on a normalized timeline",
+   "unity": "2023.1",
+   "author": {
+      "name": "Notteam",
+      "email": "iwan1234554321@gmail.com",
+      "url": "https://github.com/iwan1234554321"
+    }
+  }
