@@ -71,8 +71,9 @@ public class AlarmSystem : AppSystem
             {
                 _audioSource.PlayOneShot(alarmSound);
 
-                App.GetSystem<NotifySystem>().ShowNotify(
+                App.GetSystem<NotifySystem>().Show(
                     $"Alarm!\nTime : {ClockUtils.ConvertTimeToText(clock.Clock.Hours)}:{ClockUtils.ConvertTimeToText(clock.Clock.Minutes)}",
+                    "Close",
                     () => { _audioSource.Stop(); });
 
                 alarm.installed = false;

@@ -65,7 +65,7 @@ public class ClockHandles : AppSystemObject
 
     private void SetClockSeconds()
     {
-        if (_grabbedHandle)
+        if (_grabbedHandle && _clock.IsReady)
         {
             _grabbedHandleTotalSeconds = Mathf.Clamp(_grabbedHandleTotalSeconds, -1, _clock.MaxSecondsOfDay + 1);
 
@@ -137,5 +137,12 @@ public class ClockHandles : AppSystemObject
         hoursHandle.onGrabbed   -= OnGrabbedHandle;
         minutesHandle.onGrabbed -= OnGrabbedHandle;
         secondsHandle.onGrabbed -= OnGrabbedHandle;
+    }
+
+    public void SetInteractable(bool value)
+    {
+        hoursHandle.interactable   = value;
+        minutesHandle.interactable = value;
+        secondsHandle.interactable = value;
     }
 }

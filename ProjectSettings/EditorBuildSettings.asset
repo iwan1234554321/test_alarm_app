@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Load.unity
     guid: 5282f11b4761fa440bedbf40b0645867
   - enabled: 1
-    path: Assets/Scenes/Levels/Clock.unity
-    guid: ed1596a188e122d41ae15796e5939d9d
+    path: Assets/Scenes/Levels/ClockWebGL.unity
+    guid: 8fb6ffbf0e2f94c42b238d63c2fdab71
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

@@ -26,6 +26,8 @@ namespace Notteam.AppCore
 
         public List<T> SystemObjects => systemObjects;
 
+        protected virtual bool SortByHierarchyOrder { get; }
+
         /// <summary>
         /// Start after start of system objects
         /// </summary>
@@ -33,9 +35,12 @@ namespace Notteam.AppCore
 
         internal override void OnStartInternal()
         {
-            allSystemObjects = FindObjectsByType<T>(FindObjectsInactive.Include, FindObjectsSortMode.InstanceID).ToList();
+            allSystemObjects = FindObjectsByType<T>(FindObjectsInactive.Include, FindObjectsSortMode.None).ToList();
 
-            allSystemObjects.Sort((x, y) => y.GetInstanceID().CompareTo(x.GetInstanceID()));
+            if (SortByHierarchyOrder)
+                allSystemObjects.Sort((x, y) => x.transform.GetSiblingIndex().CompareTo(y.transform.GetSiblingIndex()));
+            else
+                allSystemObjects.Sort((x, y) => y.GetInstanceID().CompareTo(x.GetInstanceID()));
 
             systemObjects = new List<T>();
 

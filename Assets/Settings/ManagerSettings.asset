@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: ManagerSettings
   m_EditorClassIdentifier: 
   loadScene: Load
-  mainScene: Boot
+  mainScene: ClockWebGL
