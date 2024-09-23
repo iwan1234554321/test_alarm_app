@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using Notteam.Tweener;
 
 namespace Notteam.UIExtensions
 {
@@ -25,7 +26,11 @@ namespace Notteam.UIExtensions
     [DefaultExecutionOrder(-1)]
     public class UIElementButtonHighlight : UIElementButton
     {
+        [SerializeField] private float                             animationTime = 0.5f;
+        [SerializeField] private bool                              stateLight;
         [SerializeField] private UIElementButtonHighlightElement[] highlightElements;
+
+        private bool _pressed;
 
         private void Awake()
         {
@@ -42,22 +47,36 @@ namespace Notteam.UIExtensions
 
         protected override void OnDisable()
         {
-            base.OnDisable();
-
             onPress -= OnPress;
+
+            base.OnDisable();
         }
 
         private void OnPress(UIElementButton _, bool press)
         {
+            if (press)
+                _pressed = !_pressed;
+
             foreach (var element in highlightElements)
             {
                 if (press)
                 {
-                    element.Graphic.color = element.Press;
+                    if (stateLight)
+                    {
+                        var currentColor = element.Graphic.color;
+
+                        element.Graphic.gameObject.AddTween(new Tween("Color Lerp", animationTime, true, onUpdateTween: (t) =>
+                        {
+                            element.Graphic.color = Color.Lerp(currentColor, _pressed ? element.Press : element.Normal, t);
+                        }));
+                    }
+                    else
+                        element.Graphic.color = element.Press;
                 }
                 else
                 {
-                    element.Graphic.color = element.Normal;
+                    if (!stateLight)
+                        element.Graphic.color = element.Normal;
                 }
             }
         }
