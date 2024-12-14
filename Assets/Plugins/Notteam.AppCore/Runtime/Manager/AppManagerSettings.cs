@@ -7,6 +7,7 @@ namespace Notteam.AppCore
     {
         [Header("Scene")]
         [SerializeField] private string loadScene;
+        [Tooltip("First app scene after boot and load")]
         [SerializeField] private string mainScene;
 
         public string LoadScene => loadScene;

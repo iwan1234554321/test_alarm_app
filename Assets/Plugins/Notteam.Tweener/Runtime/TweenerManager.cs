@@ -64,7 +64,7 @@ namespace Notteam.Tweener
                 }
                 else
                 {
-                    Debug.Log($"Tween : {tween.ID} is not interrupted");
+                    Debug.LogWarning($"Tween : {tween.ID} is not interrupted");
 
                     return null;
                 }

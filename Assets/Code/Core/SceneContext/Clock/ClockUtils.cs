@@ -39,7 +39,7 @@ public static class ClockUtils
 
     public static int GetTotalSeconds(int hours, int minutes, int seconds)
     {
-        return (hours * 3600) + (minutes * 59) + seconds;
+        return (hours * 3600) + (minutes * 60) + seconds;
     }
 
     public static int GetDateTimeTotalSecondsOfDay(DateTime dateTime)

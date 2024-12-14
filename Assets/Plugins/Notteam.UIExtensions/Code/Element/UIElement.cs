@@ -7,6 +7,8 @@ namespace Notteam.UIExtensions
     [DefaultExecutionOrder(0)]
     public abstract class UIElement : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler, IPointerMoveHandler
     {
+        public bool interactable = true;
+
         protected event Action<PointerEventData> onPointerDown;
         protected event Action<PointerEventData> onPointerUp;
         protected event Action<PointerEventData> onPointerEnter;
@@ -15,27 +17,32 @@ namespace Notteam.UIExtensions
 
         public void OnPointerDown(PointerEventData eventData)
         {
-            onPointerDown?.Invoke(eventData);
+            if (interactable)
+                onPointerDown?.Invoke(eventData);
         }
 
         public void OnPointerUp(PointerEventData eventData)
         {
-            onPointerUp?.Invoke(eventData);
+            if (interactable)
+                onPointerUp?.Invoke(eventData);
         }
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            onPointerEnter?.Invoke(eventData);
+            if (interactable)
+                onPointerEnter?.Invoke(eventData);
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            onPointerExit?.Invoke(eventData);
+            if (interactable)
+                onPointerExit?.Invoke(eventData);
         }
 
         public void OnPointerMove(PointerEventData eventData)
         {
-            onPointerMove?.Invoke(eventData);
+            if (interactable)
+                onPointerMove?.Invoke(eventData);
         }
     }
 }

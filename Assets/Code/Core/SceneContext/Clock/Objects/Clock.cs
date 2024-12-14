@@ -1,6 +1,7 @@
 using Notteam.AppCore;
 using System;
 using UnityEngine;
+using Notteam.Tweener;
 
 public class Clock : AppSystemObject
 {
@@ -14,6 +15,9 @@ public class Clock : AppSystemObject
     [Space]
     [SerializeField] private ClockSettings settings;
 
+    private bool _isUpdateTime = true;
+    private bool _isReady;
+
     private int _maxDaysOfMonth;
     private int _maxSecondsOfDay;
     private int _maxSecondsOfMinutes;
@@ -25,6 +29,9 @@ public class Clock : AppSystemObject
     private ClockDayPeriod _dayPeriod;
 
     private int _changedTotalSeconds;
+
+    public bool           IsUpdateTime { get => _isUpdateTime; set => _isUpdateTime = value; }
+    public bool           IsReady => _isReady;
 
     public DayOfWeek      DayOfWeek => dayOfWeek;
     public int            Day       => day;
@@ -53,6 +60,8 @@ public class Clock : AppSystemObject
     protected override void OnStart()
     {
         totalSeconds = ClockUtils.GetTotalSeconds(hours, minutes, seconds);
+
+        _isReady = true;
     }
 
     public void AddDay()
@@ -121,7 +130,8 @@ public class Clock : AppSystemObject
 
     protected override void OnUpdate()
     {
-        totalSeconds += timeSpeed * Time.deltaTime;
+        if (_isUpdateTime)
+            totalSeconds += timeSpeed * Time.deltaTime;
 
         AddOrRemoveDayByTimeOutOfRange(0, _maxSecondsOfDay);
 
@@ -158,7 +168,19 @@ public class Clock : AppSystemObject
 
         dayOfWeek = dateTime.DayOfWeek;
 
-        totalSeconds = ClockUtils.GetDateTimeTotalSecondsOfDay(dateTime.ToLocalTime());
+        var startSeconds = totalSeconds;
+
+        _isReady = false;
+
+        gameObject.AddTween(new Tween("SmoothSyncTime", settings.AnimationTime,
+            onUpdateTween: (t) =>
+            {
+                totalSeconds = Mathf.Lerp(startSeconds, ClockUtils.GetDateTimeTotalSecondsOfDay(dateTime.ToLocalTime()), settings.AnimationTweenCurve.Evaluate(t));
+            },
+            onFinalTween: () =>
+            {
+                _isReady = true;
+            }));
 
         UpdateTimeValues();
 

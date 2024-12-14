@@ -11,6 +11,8 @@ public class ScreenSystem : AppSystem<Screen>
 
     private Screen _currentScreenObject;
 
+    protected override bool SortByHierarchyOrder => true;
+
     protected override void OnStartAfterSystemObjects()
     {
         SetScreen(currentScreen);
@@ -55,16 +57,21 @@ public class ScreenSystem : AppSystem<Screen>
     {
         _previousScreen = currentScreen;
 
-        Debug.Log($"SET PREVIOUS SCREEN INDEX : {_previousScreen}");
-
         if (index > SystemObjects.Count - 1)
             currentScreen = 0;
         else if (index < 0)
             currentScreen = SystemObjects.Count - 1;
         else
             currentScreen = index;
+    }
 
-        Debug.Log($"SET CURRENT SCREEN INDEX : {currentScreen}");
+    public void SetScreen(Screen screen)
+    {
+        var index = SystemObjects.IndexOf(screen);
+
+        _previousScreen = currentScreen;
+
+        currentScreen = index;
     }
 
     public void SetPreviousScreen()

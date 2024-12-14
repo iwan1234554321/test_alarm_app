@@ -1,47 +1,10 @@
 using Notteam.AppCore;
-using Notteam.UIExtensions;
 using System;
-using TMPro;
-using UnityEngine;
 
-public class NotifySystem : AppSystem
+public class NotifySystem : AppSystem<NotifyView>
 {
-    [SerializeField] private int             screenNotifyIndex;
-    [SerializeField] private TMP_Text        notifyMessage;
-    [SerializeField] private UIElementButton closeNotifyButton;
-
-    private event Action OnComplete;
-
-    protected override void OnStart()
+    public void Show(string message, string buttonMessage = null, Action completed = null)
     {
-        closeNotifyButton.onPress += CloseNotifyButton_onPress;
-    }
-
-    protected override void OnFinal()
-    {
-        closeNotifyButton.onPress -= CloseNotifyButton_onPress;
-    }
-
-    private void CloseNotifyButton_onPress(UIElementButton button, bool press)
-    {
-        if (press)
-        {
-            Debug.Log("CLOSE NOTIFY");
-
-            App.GetSystem<ScreenSystem>().SetPreviousScreen();
-
-            OnComplete?.Invoke();
-
-            OnComplete = null;
-        }
-    }
-
-    public void ShowNotify(string message, Action completed = null)
-    {
-        notifyMessage.text = message;
-
-        App.GetSystem<ScreenSystem>().SetScreen(screenNotifyIndex);
-
-        OnComplete += completed;
+        SystemObjects[0].Display(message, buttonMessage, completed);
     }
 }
